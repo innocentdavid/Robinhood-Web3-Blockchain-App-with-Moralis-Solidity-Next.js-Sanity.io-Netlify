@@ -33,6 +33,10 @@ build/Release
 node_modules
 jspm_packages
 
+dist
+out
+sanitytutorialblog
+
 # Optional npm cache directory
 .npm
 

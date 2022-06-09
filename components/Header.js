@@ -14,7 +14,9 @@ const Header = () => {
     signOut,
     isAuthenticated,
     formattedAccount,
+    connectWallet
   } = useContext(RobinhoodContext)
+  console.log(formattedAccount)
 
   return (
     <div className="flex w-screen h-16 bg-black px-24 py-3 mb-5 fixed">
@@ -41,7 +43,7 @@ const Header = () => {
         </>)}
 
         {!isAuthenticated && (<>
-          <div className={styles.menuItem} onClick={() => connectWollet()}>Login</div>
+          <div className={styles.menuItem} onClick={() => connectWallet()}>Login</div>
         </>)}
       </div>
     </div>

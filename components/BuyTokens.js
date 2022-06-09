@@ -1,25 +1,90 @@
+import React, { useContext } from 'react'
+import { RobinhoodContext } from '../context/RobinhoodContext'
+
 const styles = {
-  options: 'w-1/2 flex items-center justify-center border border-white rounded-lg p-2 bg-black mt-6 text-white',
+  inputAmount: `w-1/2 flex items-center justify-center border border-white rounded-lg p-2 bg-transparent mt-6 text-white placeholder:text-white`,
+  formContainer: `flex items-center`,
+  select: `w-1/2 flex items-center justify-center border border-white rounded-lg p-2 bg-transparent mt-6 text-white placeholder:text-white`,
+  options: `w-1/2 flex items-center justify-center border border-white rounded-lg p-2 bg-black mt-6 text-white placeholder:text-white`,
+  noticeCTA: 'font-bold text-green-500 cursor-pointer mt-5',
 }
 
-export default function BuyTokens() {
-  const mint = () => { }
-
+const BuyTokens = () => {
+  const {
+    isAuthenticated,
+    setAmount,
+    mint,
+    setCoinSelect,
+    coinSelect,
+    amount,
+    toCoin,
+    setToCoin,
+  } = useContext(RobinhoodContext)
   return (
-    <div className="formContainer flex items-center">
-      <div className="flex h-full w-full flex-col items-center">
-        <select name="" id="" className="select w-1/2 flex items-center justify-center border border-white rounded-lg p-2 bg-transparent mt-6 text-white placeholder:text-white">
-          <option value="BTC" className={styles.options}>BTC</option>
-          <option value="ETH" className={styles.options}>ETH</option>
-          <option value="SOL" className={styles.options}>SOL</option>
-          <option value="USDC" className={styles.options}>USDC</option>
-        </select>
+    <form className={styles.formContainer}>
+      <div className='flex h-full w-full flex-col items-center'>
+        
+          <div>From:</div>
+          <select
+          className={styles.select}
+          value={coinSelect}
+          onChange={e => setCoinSelect(e.target.value)}
+        >
+          <option className={styles.options} value='ETH'>
+            ETH
+          </option>
+          <option className={styles.options} value='DOGE'>
+            DOGE
+          </option>
+          <option className={styles.options} value='USDC'>
+            USDC
+          </option>
+          <option className={styles.options} value='LINK'>
+            LINK
+          </option>
+          <option className={styles.options} value='DAI'>
+            DAI
+          </option>  
+        </select>  
+                
+          <div>To:</div>
+          <select
+          className={styles.select}
+          value={toCoin}
+          onChange={e => setToCoin(e.target.value)}
+        >
+          <option className={styles.options} value='DOGE'>
+            DOGE
+          </option>  
+          <option className={styles.options} value='USDC'>
+            USDC
+          </option>  
+          <option className={styles.options} value='LINK'>
+            LINK
+          </option>  
+          <option className={styles.options} value='DAI'>
+            DAI
+          </option>  
+        </select>  
+        
         <input
-          className="inputAmount w-1/2 flex items-center justify-center border border-white rounded-lg p-2 bg-transparent mt-6 text-white placeholder:text-white"
-          placeholder="Amount..."
-          type="number" />
-        <button className="noticeCTA font-bold text-green-500 cursor-pointer mt-5" type="submit" onClick={() => mint()}>Send</button>
+          placeholder='Amount...'
+          className={styles.inputAmount}
+          type='number'
+          value={amount}
+          onChange={e => setAmount(e.target.value)}
+          />
+        <button
+          className={styles.noticeCTA}
+          type='button'
+          disabled={!isAuthenticated}
+          onClick={() => mint()}
+        >
+          Send
+        </button>
       </div>
-    </div>
+    </form>
   )
 }
+
+export default BuyTokens
